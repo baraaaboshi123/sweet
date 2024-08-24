@@ -270,54 +270,37 @@ public class AdminDashboard {
 	}
 
 	private static void deleteRecipe(int recipeId) {
-	    Connection connection = null;
-	    PreparedStatement deleteFeedbackStatement = null;
-	    PreparedStatement deleteRecipeStatement = null;
+    String deleteFeedbackQuery = "DELETE FROM feedback WHERE recipe_id = ?";
+    String deleteRecipeQuery = "DELETE FROM recipes WHERE id = ?";
 
-	    String deleteFeedbackQuery = "DELETE FROM feedback WHERE recipe_id = ?";
-	    String deleteRecipeQuery = "DELETE FROM recipes WHERE id = ?";
+    // Use try-with-resources to ensure resources are closed automatically
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement deleteFeedbackStatement = connection.prepareStatement(deleteFeedbackQuery);
+         PreparedStatement deleteRecipeStatement = connection.prepareStatement(deleteRecipeQuery)) {
 
-	    try {
-	        connection = DatabaseConnection.getConnection();
-	        connection.setAutoCommit(false);  // Start transaction
+        connection.setAutoCommit(false);  // Start transaction
 
-	        // Delete feedback associated with the recipe
-	        deleteFeedbackStatement = connection.prepareStatement(deleteFeedbackQuery);
-	        deleteFeedbackStatement.setInt(1, recipeId);
-	        int feedbackRowsAffected = deleteFeedbackStatement.executeUpdate();
+        // Delete feedback associated with the recipe
+        deleteFeedbackStatement.setInt(1, recipeId);
+        int feedbackRowsAffected = deleteFeedbackStatement.executeUpdate();
 
-	        // Delete the recipe
-	        deleteRecipeStatement = connection.prepareStatement(deleteRecipeQuery);
-	        deleteRecipeStatement.setInt(1, recipeId);
-	        int recipeRowsAffected = deleteRecipeStatement.executeUpdate();
+        // Delete the recipe
+        deleteRecipeStatement.setInt(1, recipeId);
+        int recipeRowsAffected = deleteRecipeStatement.executeUpdate();
 
-	        if (recipeRowsAffected > 0) {
-	            connection.commit();  // Commit transaction
-	            System.out.println("Recipe with ID " + recipeId + " and its associated feedback have been deleted successfully.");
-	        } else {
-	            connection.rollback();  // Rollback transaction if no recipe was deleted
-	            System.out.println("No recipe found with ID " + recipeId);
-	        }
+        if (recipeRowsAffected > 0) {
+            connection.commit();  // Commit transaction
+            System.out.println("Recipe with ID " + recipeId + " and its associated feedback have been deleted successfully.");
+        } else {
+            connection.rollback();  // Rollback transaction if no recipe was deleted
+            System.out.println("No recipe found with ID " + recipeId);
+        }
 
-	    } catch (SQLException e) {
-	        if (connection != null) {
-	            try {
-	                connection.rollback();  // Rollback transaction in case of error
-	            } catch (SQLException rollbackException) {
-	                rollbackException.printStackTrace();
-	            }
-	        }
-	        e.printStackTrace();
-	    } finally {
-	        try {
-	            if (deleteFeedbackStatement != null) deleteFeedbackStatement.close();
-	            if (deleteRecipeStatement != null) deleteRecipeStatement.close();
-	            if (connection != null) connection.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	}
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
 
 
 	private static void deletePost(int postId) {

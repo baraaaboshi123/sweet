@@ -8,25 +8,18 @@ Feature: Communication and Feedback
   Scenario: Direct Communication with Store Owners and Suppliers
     Given I am logged in as user
     And I am on the user dashboard
-    When I choose to send a message to "owner" and enter the message "string"
-    Then I should see a success message "message sent successfully."
-    And return back to the user dashboard
+    When I navigate to Communicate with Store Owners and Suppliers page
+    And I choose Send a message to a Store Owner, a list of owners and suppliers will apear
+    And I enter the owner or supplier ID "6" and a message "hello"
+    Then a success message apear and return back to the user dashboard
 
 
 
   Scenario: Provide Feedback on Purchased Products
     Given I am logged in as user
     And I have received a purchased dessert
-    When I navigate to the My Orders page
-    And I select the dessert to provide feedback on and enter feedback message "that is a good dessert"
-    Then I should see a success message "feedback send  successfully."   
+    When I navigate to the provide Feedback page
+    And I select the product ID "4" to provide feedback on and enter feedback rate out of 5 "5"
+    Then I should see a success message
     And return back to the user dashboard
 
-#  Scenario: Provide Feedback on Shared Recipes
-#    Given I am logged in as user
-#    And I have viewed a recipe shared by another user
-#    When I navigate to the "Shared Recipes" page
-#    And I select a recipe to provide feedback on
-#    And I rate the recipe and leave a comment
-#    Then my feedback should be posted successfully
-#    And the user who shared the recipe should be notified of my feedback

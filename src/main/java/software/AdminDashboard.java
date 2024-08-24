@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 public class AdminDashboard {
 	public static void createUserAccount(String userName, String city, String password, String role) {
-		const String dashed = "------------------------------------";
+		 String dashed = "------------------------------------";
 	    String query = "INSERT INTO users (user_name, city, password, role) VALUES (?, ?, ?, ?)";
 
 	    try (Connection connection = DatabaseConnection.getConnection();

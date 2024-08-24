@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 public class AdminDashboard {
 	public static void createUserAccount(String userName, String city, String password, String role) {
-	    private static final String DASHED_LINE = "------------------------------------";
 	    String query = "INSERT INTO users (user_name, city, password, role) VALUES (?, ?, ?, ?)";
 
 	    try (Connection connection = DatabaseConnection.getConnection();
@@ -39,7 +38,7 @@ public class AdminDashboard {
 
 	        System.out.println("List of All User Accounts:");
 	        System.out.println("ID | Username | City | Role");
-	        System.out.println(DASHED_LINE);
+	        System.out.println("------------------------------------");
 
 	        while (resultSet.next()) {
 	            int userId = resultSet.getInt("idusers");
@@ -49,7 +48,7 @@ public class AdminDashboard {
 
 	            System.out.println(userId + " | " + userName + " | " + city + " | " + role);
 	        }
-	        System.out.println(DASHED_LINE);
+	        System.out.println("------------------------------------");
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -95,7 +94,7 @@ public class AdminDashboard {
 	            System.out.println("Financial Report for Store Owner ID: " + storeOwnerId);
 	            System.out.println("Total Sales: $" + totalSales);
 	            System.out.println("Total Completed Orders: " + totalOrders);
-	            System.out.println(DASHED_LINE);
+	            System.out.println("------------------------------------");
 	        } else {
 	            System.out.println("No sales data found for this store owner.");
 	        }
@@ -116,7 +115,7 @@ public class AdminDashboard {
 
 	        System.out.println("List of All Stores and Their Owners:");
 	        System.out.println("Store Name | Owner Name | Owner ID");
-	        System.out.println(DASHED_LINE);
+	        System.out.println("----------------------------------------");
 
 	        while (resultSet.next()) {
 	            String storeName = resultSet.getString("name");
@@ -125,7 +124,7 @@ public class AdminDashboard {
 
 	            System.out.println(storeName + " | " + ownerName + " | " + ownerId);
 	        }
-	        System.out.println(DASHED_LINE);
+	        System.out.println("----------------------------------------");
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -146,7 +145,7 @@ public class AdminDashboard {
 
 	        String currentStoreName = "";
 	        System.out.println("Best-Selling Products in Each Store:");
-	        System.out.println(DASHED_LINE);
+	        System.out.println("--------------------------------------");
 
 	        while (resultSet.next()) {
 	            String storeName = resultSet.getString("name");
@@ -159,7 +158,7 @@ public class AdminDashboard {
 	            }
 
 	            System.out.println("Product: " + productName + " | Sales Count: " + salesCount);
-	            System.out.println(DASHED_LINE);
+	            System.out.println("--------------------------------------");
 	        }
 
 	    } catch (SQLException e) {
@@ -192,7 +191,7 @@ public class AdminDashboard {
 	                System.out.println("No users found in " + city);
 	            }
 
-	            System.out.println(DASHED_LINE);
+	            System.out.println("--------------------------------------");
 	        }
 
 	    } catch (SQLException e) {
@@ -212,7 +211,7 @@ public class AdminDashboard {
 	        ResultSet postResultSet = postStatement.executeQuery();
 
 	        System.out.println("Recipes:");
-	        System.out.println(DASHED_LINE);
+	        System.out.println("--------------------------------------");
 	        while (recipeResultSet.next()) {
 	            int recipeId = recipeResultSet.getInt("id");
 	            String name = recipeResultSet.getString("name");
@@ -227,11 +226,11 @@ public class AdminDashboard {
 	            System.out.println("Ingredients: " + ingredients);
 	            System.out.println("Dietary Info: " + dietaryInfo);
 	            System.out.println("Store Owner ID: " + userId);
-	            System.out.println(DASHED_LINE);
+	            System.out.println("--------------------------------------");
 	        }
 
 	        System.out.println("Posts:");
-	        System.out.println(DASHED_LINE);
+	        System.out.println("--------------------------------------");
 	        while (postResultSet.next()) {
 	            int postId = postResultSet.getInt("id");
 	            String userName = postResultSet.getString("user_name");
@@ -240,7 +239,7 @@ public class AdminDashboard {
 	            System.out.println("Post ID: " + postId);
 	            System.out.println("User Name: " + userName);
 	            System.out.println("Details: " + details);
-	            System.out.println(DASHED_LINE);
+	            System.out.println("--------------------------------------");
 	        }
 
 	    } catch (SQLException e) {
@@ -361,7 +360,7 @@ public class AdminDashboard {
 	            System.out.println("User: " + userName);
 	            System.out.println("Product: " + productName);
 	            System.out.println("Rating: " + rating);
-	            System.out.println(DASHED_LINE);
+	            System.out.println("-------------------------------------------------");
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();

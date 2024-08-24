@@ -1,34 +1,36 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>sweetM</groupId>
-  <artifactId>sweet</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <dependencies> 
-<dependency>
-    <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-java</artifactId> 
-    <version>7.18.1</version>
-    <scope>test</scope>
-</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-junit</artifactId>
-        <version>7.18.1</version>
-        <scope>test</scope>
-    </dependency>
+    <groupId>sweetM</groupId>
+    <artifactId>sweet</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-    
-<dependency>
-    <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-picocontainer</artifactId>
-    <version>7.18.1</version>
-</dependency>
-  
-  </dependencies>
-  <properties>
-  <sonar.organization>bbbbaraa</sonar.organization>
-  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-</properties>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <sonar.organization>bbbbaraa</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>7.18.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>7.18.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>7.18.1</version>
+        </dependency>
+    </dependencies>
 </project>

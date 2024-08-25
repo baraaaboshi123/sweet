@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 public class AdminDashboard {
+	  private static final String DASHED_LINE = "------------------------------------";
 	public static void createUserAccount(String userName, String city, String password, String role) {
 	    String query = "INSERT INTO users (user_name, city, password, role) VALUES (?, ?, ?, ?)";
 
@@ -38,7 +39,7 @@ public class AdminDashboard {
 
 	        System.out.println("List of All User Accounts:");
 	        System.out.println("ID | Username | City | Role");
-	        System.out.println("------------------------------------");
+	        System.out.println(DASHED_LINE);
 
 	        while (resultSet.next()) {
 	            int userId = resultSet.getInt("idusers");
@@ -48,7 +49,7 @@ public class AdminDashboard {
 
 	            System.out.println(userId + " | " + userName + " | " + city + " | " + role);
 	        }
-	        System.out.println("------------------------------------");
+	        System.out.println(DASHED_LINE);
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserAuthentication {
-	public static final boolean isUserLoggedIn = false;
+	public static  boolean isUserLoggedIn = false;
    public static boolean authenticate(String username, String password) {
     String query = "SELECT idusers, user_name, password FROM users WHERE user_name = ? AND password = ?";
     

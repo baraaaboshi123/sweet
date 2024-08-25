@@ -83,31 +83,30 @@ public class ProductManagement {
         }
     }
 	public static double calculateFinalPrice(int productId) {
-	    String query = "SELECT price, discount_percentage FROM products WHERE idproducts = ?";
+    String query = "SELECT price, discount_percentage FROM products WHERE idproducts = ?";
 
-	    try (Connection connection = DatabaseConnection.getConnection();
-	         PreparedStatement statement = connection.prepareStatement(query)) {
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
 
-	        statement.setInt(1, productId);
-	        ResultSet resultSet = statement.executeQuery();
+        statement.setInt(1, productId);
+        ResultSet resultSet = statement.executeQuery();
 
-	        if (resultSet.next()) {
-	            double price = resultSet.getDouble("price");
-	            double discountPercentage = resultSet.getDouble("discount_percentage");
+        if (resultSet.next()) {
+            double price = resultSet.getDouble("price");
+            double discountPercentage = resultSet.getDouble("discount_percentage");
 
-	            double discountAmount = price * (discountPercentage / 100);
-	            double finalPrice = price - discountAmount;
+            // Directly return the calculated final price
+            return price - (price * (discountPercentage / 100));
+        } else {
+            System.out.println("Product not found.");
+            return 0;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return 0;
+    }
+}
 
-	            return finalPrice;
-	        } else {
-	            System.out.println("Product not found.");
-	            return 0;
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return 0;
-	    }
-	}
 	public static void listProducts(int ownerId) {
 	    String query = "SELECT p.idproducts, p.name, p.price, COALESCE(AVG(f.rating), 0) AS avg_rating " +
 	                   "FROM products p " +

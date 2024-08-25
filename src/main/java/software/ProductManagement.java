@@ -5,31 +5,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 public class ProductManagement {
 	public static void addProduct(String name, double price, int ownerId) {
-        // Establish a connection to the database
-        try (Connection connection = DatabaseConnection.getConnection()) {
-            // SQL query to insert a new product into the Products table
-            String insertQuery = "INSERT INTO Products (name, price, owner_id) VALUES (?, ?, ?)";
-            
-            // Prepare the statement to avoid SQL injection
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, name);         // Set the product name
-            preparedStatement.setDouble(2, price);        // Set the product price
-            preparedStatement.setInt(3, ownerId);         // Set the store owner's ID
+    // Establish a connection to the database
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement preparedStatement = connection.prepareStatement(
+                 "INSERT INTO Products (name, price, owner_id) VALUES (?, ?, ?)")) {
 
-            // Execute the update (insertion)
-            int rowsAffected = preparedStatement.executeUpdate();
-            
-            if (rowsAffected > 0) {
-                System.out.println("Product added successfully.");
-            } else {
-                System.out.println("Failed to add the product.");
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("An error occurred while adding the product.");
+       
+        preparedStatement.setString(1, name); 
+        preparedStatement.setDouble(2, price); 
+        preparedStatement.setInt(3, ownerId);  
+
+        // Execute the update (insertion)
+        int rowsAffected = preparedStatement.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("Product added successfully.");
+        } else {
+            System.out.println("Failed to add the product.");
         }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("An error occurred while adding the product.");
     }
+}
+
     
 	public static void updateProduct(int productId, String name, double price) {
         String query = "UPDATE products SET name = ?, price = ? WHERE idproducts = ?";

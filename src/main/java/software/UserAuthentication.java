@@ -6,21 +6,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserAuthentication {
-	public static boolean isUserLoggedIn;
-    public static boolean authenticate(String username, String password) {
-        try (Connection connection = DatabaseConnection.getConnection()) {
-            String query = "SELECT * FROM Users WHERE user_name = ? AND password = ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, username);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            isUserLoggedIn=true;
-            return resultSet.next(); // If a record is found, authentication is successful
-        } catch (SQLException e) {
-            e.printStackTrace();
+	public static final boolean isUserLoggedIn = false;
+   public static boolean authenticate(String username, String password) {
+    String query = "SELECT idusers, user_name, password FROM users WHERE user_name = ? AND password = ?";
+    
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+
+        statement.setString(1, username);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) { // If a record is found, authentication is successful
+            isUserLoggedIn = true;
+            return true;
+        } else {
             return false;
         }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
     
     public static boolean signup(String username, String password, String role, String city) {
         try (Connection connection = DatabaseConnection.getConnection()) {
